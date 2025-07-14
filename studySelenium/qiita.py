@@ -18,9 +18,6 @@ driver.find_element(By.NAME,"identity").send_keys("vacky0405@gmail.com")
 driver.find_element(By.NAME,"password").send_keys("@84XputXyjT9SqZ")
 # CLASS属性が"sessions_button--wide"であるHTML要素をクリック
 driver.find_element(By.CLASS_NAME, "sessions_button--wide").click()
-# CLASS属性が複数ある要素は「.」で取得できる
-# 例）< ... class="btn btn_login btn_default" ...のような場合、
-#                "btn.btn_login.btn_default"でfind_elemetする
 
 # 要素を探す前に1秒待機する
 time.sleep(1)
@@ -28,6 +25,13 @@ time.sleep(1)
 driver.get('https://qiita.com/vacky0405')
 # Contributions数を取得（CLASS属性が”style-1snuvpu”のHTML要素を取得して、テキストを取得）
 cobCnt = driver.find_element(By.CLASS_NAME,"style-1snuvpu").text
+time.sleep(0.5)
+
+# "プロフィールを編集"をクリック
+driver.find_element(By.CLASS_NAME, "style-7p38h8").click()
+time.sleep(0.5)
+# CLASS属性が複数ある"style-1ygoan4"であるHTML要素をクリック "タイムライン"へ遷移
+driver.find_element(By.XPATH, value='//a[@class="style-1ygoan4" and @href="/timeline"]').click()
 
 # Contributions数のメッセージボックス表示
 root = tkinter.Tk()

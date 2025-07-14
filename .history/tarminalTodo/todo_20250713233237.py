@@ -1,0 +1,89 @@
+import json
+import os
+import sys
+from typing import List
+
+TODO_FILE = "todo.json"
+
+
+# -------------------------------
+# ❶ 読み込み ― JSON が壊れていても落ちない
+# -------------------------------
+def load_tasks() -> List[str]:
+    if not os.path.exists(TODO_FILE):
+        return []
+    try:
+        with open(TODO_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        # ファイルが空 or 壊れているときはリセット
+        return []
+
+
+# -------------------------------
+# ❷ 保存 ― 1行でOK
+# -------------------------------
+def save_tasks(todos: List[str]) -> None:
+    with open(TODO_FILE, "w", encoding="utf-8") as f:
+        json.dump(todos, f, ensure_ascii=False, indent=4)
+
+
+# -------------------------------
+# ❸ 画面表示用ユーティリティ
+# -------------------------------
+def show_tasks(todos: List[str]) -> None:
+    if not todos:
+        print("Todoリストは空です")
+    else:
+        for i, task in enumerate(todos, start=1):
+            print(f"{i}. {task}")
+
+def main() -> None:
+    todos = load_tasks()  # ← () を付けて呼び出し！ ここが元バグ
+
+    MENU = """\n==== メニュー ====
+1. Todoを追加
+2. Todoを表示
+3. Todoを削除
+4. 終了
+==================="""
+
+    while True:
+        print(MENU)
+        choice = input("番号を入力してください: ").strip()
+
+        # --- 1) 追加 ---
+        if choice == "1":
+            task = input("Todoを入力してください: ").strip()
+            if task:
+                todos.append(task)
+                save_tasks(todos)
+                print("Todoを保存しました")
+
+        # --- 2) 表示 ---
+        elif choice == "2":
+            show_tasks(todos)
+
+        # --- 3) 削除 ---
+        elif choice == "3":
+            show_tasks(todos)
+            try:
+                idx = int(input("削除するTodoの番号を入力してください: "))
+                todos.pop(idx - 1)
+                save_tasks(todos)
+                print("Todoを削除しました")
+            except (ValueError, IndexError):
+                print("エラー: 有効な番号を入力してください")
+
+        # --- 4) 終了 ---
+        elif choice == "4":
+            save_tasks(todos)
+            print("Todoアプリを終了します")
+            sys.exit()
+
+        else:
+            print("無効な値です。1〜4 の数字を入力してください")
+
+
+if __name__ == "__main__":
+    main()

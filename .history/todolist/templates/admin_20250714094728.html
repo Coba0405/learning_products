@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+<br>
+<h2>Administrator page</h2>
+<hr>
+<p>Hi, {{ username }}.</p>
+
+<br>
+<table class="table">
+    <thead class="table-dark">
+    <tr>
+        <th>#</th>
+        <th>内容</th>
+        <th>締切</th>
+        <th>掲載日</th>
+        <th>終了</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for t in task %}
+    <tr>
+        <td>{{ t['id']}}</td>
+        <td>{{ t['content'] }}</td>
+        <td>{{ t['deadline'] }}</td>
+        
+    </tr>
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+import json
+
+TODO_LIST = 'todo_lost.json'
+
+def json_load():
+    try:
+        with open(TODO_LIST, 'r', encoding='utf-8') as file:
+            return json_load(file)
+    except:
+        return []
+
+def save_tasks(todos):
+    with open(TODO_LIST, 'w', encoding='utf-8') as file:
+        json.dump(todos, file, ensure_ascii=False, indent=4)
+
+todo
+jsonを読み込む
+jsonがないなら空の[]を作る
+jsonに書き込む
+
+pythonを起動して選択肢を出す
+

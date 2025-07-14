@@ -1,0 +1,2 @@
+# レスポンス処理用
+from fastapi import FastAPI

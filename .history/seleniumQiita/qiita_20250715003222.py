@@ -22,7 +22,7 @@ driver.find_element(By.CLASS_NAME, "sessions_button--wide").click()
 # 例）< ... class="btn btn_login btn_default" ...のような場合、
 #                "btn.btn_login.btn_default"でfind_elemetする
 
-# 要素を探す前に1秒待つ
+# 要素を探す前に1秒待機する
 time.sleep(1)
 # マイページへ移動
 driver.get('https://qiita.com/vacky0405')
